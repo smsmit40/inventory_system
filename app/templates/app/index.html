@@ -1,0 +1,74 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div style="text-align: center;"><h1>Inventory Management System</h1></div>
+
+
+<div class ="container mx-auto">
+    <form method="post" action="{% url 'create_product' %}">
+        {% csrf_token %}
+<button name="create_product " class="btn btn-success"  type='submit'>Create Product</button>
+</form>
+<table class="table table-success table-striped table-hover">
+    <tr>
+        <th>Product ID</th>
+        <th>Product</th>
+        <th>Available Stock</th>
+    </tr>
+    {% for transaction in transactions %}
+    <tr>
+     <td><a href="{% url 'productdetail' transaction.productid %}">{{transaction.productid}}</a></td>
+    <td>{{transaction.productname}}</td>
+    <td>{{transaction.product_total}}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+
+
+
+<div class="container border border-success border-5">
+<h6 id="error">{{error}}</h6>
+<h4>Add/Update Transactions</h4>
+<form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
+    {% csrf_token %}
+{{ form.as_p }}
+    <button name="add_transaction" type="submit" class="btn btn-success">Add Transaction</button>
+</form>
+
+</div>
+
+<div class="container mx-auto">
+<table class="table table-success table-striped table-hover">
+    <h3>Transaction History</h3>
+    <tr>
+        <th>ID</th>
+        <th>Product</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+        <th>Date</th>
+    </tr>
+    {% for entry in all_transactions %}
+    <tr>
+        <td><a href="{% url 'transactiondetail' entry.transaction_id %}">{{entry.transaction_id}}</a></td>
+        <td>{{entry.product}}</td>
+        <td>{{entry.transacton_type}}</td>
+        <td>{{entry.amount}}</td>
+        <td>{{entry.transactiondate}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+<style>
+    div {
+    padding-bottom: 50px;
+        padding-top: 50px;
+    }
+
+    h6{
+        font: #f50d0d;
+    }
+
+</style>
+{% endblock %}}

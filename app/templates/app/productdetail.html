@@ -1,0 +1,17 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<center><h1>Update or Delete Product</h1></center>
+
+<div class="container">
+    <h3>{{error}}</h3>
+<form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+    <button name="update_transaction" type="submit" class="btn btn-success">Update Transaction</button>
+    <p></p>
+    <button name="delete_transaction" type="submit" class="btn btn-danger">Delete Transaction</button>
+</form>
+</div>
+
+{% endblock %}
